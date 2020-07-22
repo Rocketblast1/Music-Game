@@ -1,7 +1,7 @@
 # Music-Game
 Yung Men Music Game
 
-WHEN the user enters the main menu:
+<h1> WHEN the user enters the main menu: </h1>
 	THEN create back button to previous screen function
 	AND display the Menu Screen and Buttons ("Rules", "Songs", "Settings")
 	
