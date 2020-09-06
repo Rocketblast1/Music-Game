@@ -1,0 +1,11 @@
+body{
+    background-color: greenyellow;
+}
+#MenuNav{
+    display: inline;
+    align-items: center;
+}
+
+#MenuNav>div{
+    padding: 100px;
+}

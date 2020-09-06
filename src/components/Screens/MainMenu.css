@@ -1,0 +1,13 @@
+body{
+    min-width: height 100vh;
+    justify-content: center;
+    align-items: center;
+
+}
+.MainMenu{
+    display: contents;
+}
+.MainMenu > div{
+    background-color: greenyellow;
+    align-items: center;
+}
