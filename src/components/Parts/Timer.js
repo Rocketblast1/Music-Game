@@ -21,12 +21,10 @@ useEffect(() => {
             })
             }, .032) 
     }
-        else return 
-    
 }, [state.count, state.isPaused])
 
     return (
-       <div>
+       <>
             <button style={{padding: 10}} onClick={()=>{
                 timeisPaused.current = timeisPaused.current ? false : true
             }}>
@@ -39,6 +37,6 @@ useEffect(() => {
                 `Paused at: ${pausedTime.current}` 
             }: time.current }  
              </h2> 
-       </div>
+       </>
     )
 }
