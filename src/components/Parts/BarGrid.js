@@ -1,9 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useReducer } from "react";
 
 export default function Rectangle() {
   // static contextType = RectangleContext;
   const [style, setStyle] = useState({
     button: {
+      detectionArea:{
+        background: "red",
+        border: "solid black 1px",
+        buttonOffset: "4%",
+      },
       background: "red",
       border: "solid black 1px",
       buttonOffset: "4%",
@@ -13,10 +18,20 @@ export default function Rectangle() {
       border: "solid black 1px",
       height: "400px",
     },
+    section:{
+      position: "relative",
+      border: `dashed blue 0.5px`,
+      background: {},
+      top: ``,
+      height: "100px",
+    },
     numOfCol: 4,
     numOfRows: 2,
     notesArray: [],
     colors: ["red", "blue", "green", "orange", "yellow", "purple", "lightblue"],
+    divPosition:{
+      height: "",
+    }
   });
   const [falling, setFalling] = useState({
     isFalling: true,
@@ -25,22 +40,21 @@ export default function Rectangle() {
 
   const fallSettings = useRef(falling);
   const fallingSpeed = useRef(falling.fallSpeed);
-  const buttonFunction = useRef(
-    `${style.bar.height} - ${style.button.buttonOffset}`
-  );
+  const detectionArea = useRef(`${style.bar.height} - ${style.button.buttonOffset}`);
   const currentStyle = useRef(style);
+  const topDetectionAreaThing = useRef(`calc(${detectionArea.current})`)
   const colorsArray = useRef(style.colors);
-
-  function startFalling() {
-    setFalling({
-      isFalling: true,
-      fallSpeed: fallingSpeed.current - fallSettings.current.fallSpeed,
-    });
+  
+function getRandomColor(){
+  const randomColor = style.colors[Math.floor(Math.random(style.colors.length) * style.colors.length )]
+  return randomColor
+}
+  let randomColor = useRef(getRandomColor())
+  function reduceHeight(){
+    
   }
+  
 
-  useEffect(() => {
-    startFalling();
-  });
 
   return (
     <div
@@ -64,15 +78,11 @@ export default function Rectangle() {
       >
         BAR 1
         <section
-          style={{
-            position: "relative",
-            border: `dashed blue 0.5px`,
-            background: "red",
-            top: `calc(${buttonFunction.current})`,
-            height: "100px",
+          style={currentStyle.current.section}
+          onClick={()=>{
           }}
         >
-          DETECTION AREA
+          NOTE
         </section>
       </div>
       <div
@@ -90,11 +100,11 @@ export default function Rectangle() {
             position: "relative",
             border: `dashed blue 0.5px`,
             background: "red",
-            top: `calc(${buttonFunction.current})`,
+            top: ``,
             height: "100px",
           }}
         >
-          DETECTION AREA
+          NOTE 2
         </section>
       </div>
       <div
@@ -112,11 +122,11 @@ export default function Rectangle() {
             position: "relative",
             border: `dashed blue 0.5px`,
             background: "red",
-            top: `calc(${buttonFunction.current})`,
+            top: `calc(${detectionArea.current})`,
             height: "100px",
           }}
         >
-          DETECTION AREA
+          NOTE 3
         </section>
       </div>
       <div
@@ -130,15 +140,9 @@ export default function Rectangle() {
       >
         BAR 4
         <section
-          style={{
-            position: "relative",
-            border: `dashed blue 0.5px`,
-            background: "red",
-            top: `calc(${buttonFunction.current})`,
-            height: "100px",
-          }}
+          style={currentStyle.current.section}
         >
-          DETECTION AREA
+          NOTE 4
         </section>
       </div>
       <button
@@ -149,7 +153,7 @@ export default function Rectangle() {
           border: "solid black 1px",
         }}
       >
-        BUTTON 1
+        DETECTION AREA 1
       </button>
       <button
         id={"button-2"}
@@ -159,7 +163,7 @@ export default function Rectangle() {
           border: "solid black 1px",
         }}
       >
-        BUTTON 2
+        DETECTION AREA 2
       </button>
       <button
         id={"button-3"}
@@ -169,7 +173,7 @@ export default function Rectangle() {
           border: "solid black 1px",
         }}
       >
-        BUTTON 3
+        DETECTION AREA 3
       </button>
       <button
         id={"button-4"}
@@ -179,7 +183,7 @@ export default function Rectangle() {
           border: "solid black 1px",
         }}
       >
-        BUTTON 4
+        DETECTION AREA 4
       </button>
     </div>
   );
