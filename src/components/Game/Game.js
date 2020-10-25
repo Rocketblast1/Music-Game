@@ -1,27 +1,46 @@
-import React, { Component} from 'react'
-import {motion} from 'framer-motion'
-import Timer from '../Parts/Timer'
+import React, { useReducer, useEffect} from 'react'
+import timerContext from '../Contexts/timerContext'
 import BarGrid from '../Parts/BarGrid'
+import timerReducer , {initialState} from '../Reducers/timerReducer'
 import './Game.css'
 
-// import {Link, Route, Switch} from "react-router-dom";
-// import useState from 'react'
+export default function Game (){
 
-export default class Game extends Component {  
+    const [timerState, dispatch] = useReducer(timerReducer, initialState)
 
-    render() {
-        return (
-            <div id="Game">
-                <div className="app-container">
-                    <div className="header-container">
-                        <h1>This Is The Game</h1>
-                        <Timer></Timer>
-                    </div>
-                    
+    useEffect(() => {
+        let gameTime = setInterval(()=>{
+            !timerState.isPaused ? dispatch({type: 'increment', payload: timerState.count}) : dispatch({type: '', payload: timerState.isPaused})
+        },.016)
+            return function (){
+            clearInterval(gameTime)
+        }
+    },[timerState])
+
+    return (
+        <div id="Game">
+            <div className="app-container">
+
+                <div className="header-container">
+                    <h1>YUNG MEN: NOTE BLASTER!!</h1>
+                </div>
+
+                <button onClick={()=>{
+                    dispatch({type: 'toggle-pause', payload: timerState.isPaused})
+                    }}>
+                    Pause
+                </button>
+
+                <div>
+                    {timerState.count}
+                </div>
+
+                <timerContext.Provider value={timerState}>
                     <BarGrid>
                     </BarGrid>
-                </div>
-            </div> 
-        ) 
-    }
+                </timerContext.Provider>
+
+            </div>
+        </div>
+    )
 }
