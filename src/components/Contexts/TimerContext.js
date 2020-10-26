@@ -1,11 +1,5 @@
-import React, { Component, useContext} from 'react'
-export const TimerContext = useContext();
-export default class TimerContextProvider extends Component {
-    state = {}
-    render() {
-        return (
-            <TimerContext.Provider>
-            </TimerContext.Provider>
-        )
-    }
-}
+import {createContext} from 'react'
+import timerReducer , {initialState} from '../Reducers/timerReducer'
+
+export const timerContext = createContext(timerReducer(initialState,''));
+export default timerContext;
