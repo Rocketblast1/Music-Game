@@ -41,7 +41,11 @@ function generateNote(barColumnStart, barColumnEnd) {
     </Note>
   )
 }
-
+//------------------------------CREATE ALL NOTES-----------------------------------
+  function createNote(){
+    const notesArray = style.notesArray
+    generatedNoteArray.push(generateNote())
+  }
 //-----------------------------BAR GRID--------------------------------------------
   return (
     <div
@@ -56,7 +60,10 @@ function generateNote(barColumnStart, barColumnEnd) {
       }}
     >
       {Array.from(generatedBarArray.current)}
-      {Array}
+      {Array.from(generatedNoteArray.current)}
+      {()=>{
+
+      }}
     </div>
   );
 }
