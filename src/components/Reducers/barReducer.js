@@ -2,7 +2,7 @@ export const initialState = {
 
 }
 
-const noteReducer = (state, action) => {
+const barReducer = (state, action) => {
     switch(action.type){
         case 'toggle-fall':
             return{
@@ -19,4 +19,4 @@ const noteReducer = (state, action) => {
     }
 }
 
-export default noteReducer;
+export default barReducer;

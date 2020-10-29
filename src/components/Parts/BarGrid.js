@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef} from "react";
+import React, { useState, useEffect, useRef, useContext} from "react";
+import TimerContext from '../Contexts/TimerContext'
 import Bar from './Bar'
 import Note from "./Note";
 
@@ -13,9 +14,11 @@ export default function BarGrid() {
 
   let generatedBarArray = useRef(style.barArray)
   let generatedNoteArray = useRef(style.notesArray)
+  let gameTime = useContext(TimerContext)
 
   useEffect(()=>{
     generatedBarArray.current = createBarGrid();
+    generatedNoteArray.current = style.notesArray
   },[])
 //------------------------------BAR GENERATION-------------------------------------
   function generateBar(barColumnStart, barColumnEnd) {
@@ -34,18 +37,7 @@ export default function BarGrid() {
     generatedBarArray = barArray
     return barArray;
   }
-//-----------------------------NOTE GENERATION-------------------------------------
-function generateNote(barColumnStart, barColumnEnd) {
-  return (
-    <Note key={barColumnStart} start={barColumnStart} end={barColumnEnd}>
-    </Note>
-  )
-}
-//------------------------------CREATE ALL NOTES-----------------------------------
-  function createNote(){
-    const notesArray = style.notesArray
-    generatedNoteArray.push(generateNote())
-  }
+
 //-----------------------------BAR GRID--------------------------------------------
   return (
     <div
@@ -59,11 +51,7 @@ function generateNote(barColumnStart, barColumnEnd) {
         minWidth: `calc(${style.numOfCol} * 75px)`,
       }}
     >
-      {Array.from(generatedBarArray.current)}
-      {Array.from(generatedNoteArray.current)}
-      {()=>{
-
-      }}
+      {generatedBarArray.current}
     </div>
   );
 }

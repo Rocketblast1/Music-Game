@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect} from 'react'
-import timerContext from '../Contexts/timerContext'
+import TimerContext from '../Contexts/TimerContext'
 import BarGrid from '../Parts/BarGrid'
 import timerReducer , {initialState} from '../Reducers/timerReducer'
 import './Game.css'
@@ -28,17 +28,17 @@ export default function Game (){
                 <button onClick={()=>{
                     dispatch({type: 'toggle-pause', payload: timerState.isPaused})
                     }}>
-                    Pause
+                    Pause Timer
                 </button>
 
                 <div>
                     {timerState.count}
                 </div>
 
-                <timerContext.Provider value={timerState}>
+                <TimerContext.Provider value={timerState}>
                     <BarGrid>
                     </BarGrid>
-                </timerContext.Provider>
+                </TimerContext.Provider>
 
             </div>
         </div>

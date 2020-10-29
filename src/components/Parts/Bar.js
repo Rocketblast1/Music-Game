@@ -1,4 +1,5 @@
-import React, {useState, useRef, useContext} from 'react'
+import React, {useState, useRef, useContext, useEffect} from 'react'
+import TimerContext from '../Contexts/TimerContext'
 import Note from './Note.js'
 
 export default function Bar(props) {
@@ -45,25 +46,39 @@ export default function Bar(props) {
           background: `#34a8eb`,
           padding: `2px`,
           top: `${detectionTopOffset.current}`,
-          fontSize: `74%`,
+          fontSize: `66%`,
         },
-      }})
+      },
+      noteArray:[],
+      initialNoteHeight: 217
+    })
 
-    let notesArrayVisible = true;
-    let notesArray = [<Note></Note>]
+  let gameTime = useContext(TimerContext)
+  let generatedNoteArray = useRef(style.noteArray)
+  useEffect(() => {
+    style.noteArray = generatedNoteArray.current
+  }, [style.noteArray,])
 
-    function generateNote(){
-      if(notesArrayVisible === true){
-        return notesArrayVisible = false;
-      } else return notesArrayVisible = true;
-    }
+//-----------------------------NOTE GENERATION-------------------------------------
+function generateNote(ih) {
+  return (
+    <Note key={gameTime.count} style={{...style.sections.perfect, top: `${ih}px`}}>
+    </Note>
+  )
+}
+//------------------------------CREATE ALL NOTES-----------------------------------
+  function addNote(){
+    const notesArray = style.noteArray;
+    notesArray.push(generateNote(style.initialNoteHeight));
+    console.log(notesArray)
+    return notesArray
+  }
 
     return (
         <div
         id={`bar - ${props.start}`}
         style={{
           gridArea: `1/${props.start}/${props.end}/${props.end}`,
-          position: "relative",
           height: "500px",
           border: "solid black 1px",
         }}
@@ -71,9 +86,10 @@ export default function Bar(props) {
 
         {/* Bar Div */}
         BAR {props.start}
-        <div id={`detection-areas-container`}>
+        <div id={`detection-areas-container`} style={{textAlign: "center"}}>
 
           {/* Detection Areas */}
+
           <section id={"miss-top"} style={style.sections.miss.top}>
             MISS
           </section>
@@ -82,7 +98,10 @@ export default function Bar(props) {
             GOOD
           </section>
 
-          <section id={"perfect"} style={style.sections.perfect}>
+          <section id={"perfect"} style={style.sections.perfect} onClick={()=>{
+            addNote()
+            // incrementHeight();
+          }}>
             PERFECT
           </section>
 
@@ -94,10 +113,13 @@ export default function Bar(props) {
             MISS
           </section>
 
-          {notesArrayVisible ? notesArray : null }
+          <section>
+            {generatedNoteArray.current}
+          </section>
 
         </div>
       </div>
+
     )
 }
 
