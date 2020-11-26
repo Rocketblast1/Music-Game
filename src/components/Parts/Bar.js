@@ -1,5 +1,6 @@
 import React, {useState, useRef, useContext, useEffect} from 'react'
 import TimerContext from '../Contexts/TimerContext'
+import {useSpring} from 'react-spring'
 import Note from './Note.js'
 
 export default function Bar(props) {
@@ -35,7 +36,7 @@ export default function Bar(props) {
           border: `solid black 0.5px`,
           background: `yellow`,
           padding: `2px`,
-          height: `20px`,
+          height: `20px `,
           top: `${detectionTopOffset.current}`,
           fontSize: `74%`,
         },
@@ -50,26 +51,26 @@ export default function Bar(props) {
         },
       },
       noteArray:[],
-      initialNoteHeight: 217
     })
 
   let gameTime = useContext(TimerContext)
   let generatedNoteArray = useRef(style.noteArray)
   useEffect(() => {
     style.noteArray = generatedNoteArray.current
-  }, [style.noteArray,])
+  }, [style.noteArray])
+ let rising = useSpring({from:{height: `${style.initialNoteHeight}px`, opacity: 1}, height:`${style.initialNoteHeight + 100}px`, opacity: 0 })
 
 //-----------------------------NOTE GENERATION-------------------------------------
 function generateNote(ih) {
   return (
-    <Note key={gameTime.count} style={{...style.sections.perfect, top: `${ih}px`}}>
+    <Note key={gameTime.count} style={{ top: `${ih}px`}}>
     </Note>
   )
 }
 //------------------------------CREATE ALL NOTES-----------------------------------
   function addNote(){
     const notesArray = style.noteArray;
-    notesArray.push(generateNote(style.initialNoteHeight));
+    notesArray.push(generateNote(detectionTopOffset));
     console.log(notesArray)
     return notesArray
   }
@@ -79,6 +80,7 @@ function generateNote(ih) {
         id={`bar - ${props.start}`}
         style={{
           gridArea: `1/${props.start}/${props.end}/${props.end}`,
+          position: 'relative',
           height: "500px",
           border: "solid black 1px",
         }}
@@ -98,10 +100,7 @@ function generateNote(ih) {
             GOOD
           </section>
 
-          <section id={"perfect"} style={style.sections.perfect} onClick={()=>{
-            addNote()
-            // incrementHeight();
-          }}>
+          <section id={"perfect"} style={style.sections.perfect} onTouchStart={addNote}>
             PERFECT
           </section>
 

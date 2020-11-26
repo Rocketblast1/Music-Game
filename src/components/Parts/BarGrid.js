@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef, useContext} from "react";
-import TimerContext from '../Contexts/TimerContext'
 import Bar from './Bar'
-import Note from "./Note";
 
 export default function BarGrid() {
   const [style, setStyle] = useState({
@@ -14,8 +12,6 @@ export default function BarGrid() {
 
   let generatedBarArray = useRef(style.barArray)
   let generatedNoteArray = useRef(style.notesArray)
-  let gameTime = useContext(TimerContext)
-
   useEffect(()=>{
     generatedBarArray.current = createBarGrid();
     generatedNoteArray.current = style.notesArray

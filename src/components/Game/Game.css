@@ -1,22 +1,23 @@
 body{
+    margin: 2%;
     text-align: center;
     align-items: center;
 }
 
 #Game{
     text-align: center;
-    background-color: rgb(16, 224, 16);
+    background-color: rgb(189, 171, 171);
     position: relative;
 }
 .centered_div {
     align-items: center;
 }
 
-.app-container{    
+.app-container{
     margin: 2%;
     padding: 1%;
 }
-.header-container{    
+.header-container{
     margin: 4%;
     padding: 2%;
 }
